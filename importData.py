@@ -35,6 +35,7 @@ for index, row in df.iterrows():
     # Check if the content length exceeds 2000 characters
     if len(content) > 2000:
         # Split the content into chunks of maximum 2000 characters
+        #@todo chunk at whitespace (or even period) to not chunk in mid-word
         chunks = [content[i:i+2000] for i in range(0, len(content), 2000)]
         
         # Append the chunks to the split_chunks list, modifying the key
@@ -49,11 +50,15 @@ chunked_df = pd.DataFrame(split_chunks)
 
 chunked_df["length"] = chunked_df.Content.apply(lambda x: len(x))
 
+
+print("Number of rows post-split:")
+num_rows = len(chunked_df)
+print(num_rows)
+
 # debug
 # sorted_df = chunked_df.sort_values('length', ascending=False)
 # sorted_df.to_csv("./data/split-content.csv")
 # print(sorted_df.head(50))
-
 
 
 
@@ -62,17 +67,14 @@ chunked_df["length"] = chunked_df.Content.apply(lambda x: len(x))
 top_n = 1000
 df = df.sort_values("Time").tail(top_n * 2)  # first cut to first 2k entries, assuming less than half will be filtered out
 df.drop("Time", axis=1, inplace=True)
+''' 
 
-encoding = tiktoken.get_encoding(embedding_encoding)
-
-# omit reviews that are too long to embed
-df["n_tokens"] = df.combined.apply(lambda x: len(encoding.encode(x)))
-df = df[df.n_tokens <= max_tokens].tail(top_n)
-len(df)
+encoding = tiktoken.get_encoding(settings.EMBEDDING_ENCODING)
+print(encoding)
 
 # Get embeddings and save them for future reuse
 # Ensure you have your API key set in your environment per the README: https://github.com/openai/openai-python#usage
-
+'''
 # This may take a few minutes
 df["embedding"] = df.combined.apply(lambda x: get_embedding(x, engine=embedding_model))
 df.to_csv("data/fine_food_reviews_with_embeddings_1k.csv")
