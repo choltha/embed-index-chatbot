@@ -8,8 +8,7 @@ import settings
 from openai.embeddings_utils import get_embedding
 
 
-print(settings.OPEN_API_KEY)
-exit
+# print(settings.OPENAI_API_KEY)
 
 # load & inspect dataset
 input_datapath = "data/fine_food_reviews_1k.csv"  # to save space, we provide a pre-filtered dataset
@@ -32,8 +31,8 @@ encoding = tiktoken.get_encoding(embedding_encoding)
 df["n_tokens"] = df.combined.apply(lambda x: len(encoding.encode(x)))
 df = df[df.n_tokens <= max_tokens].tail(top_n)
 len(df)
-1000
-2. Get embeddings and save them for future reuse
+
+# Get embeddings and save them for future reuse
 # Ensure you have your API key set in your environment per the README: https://github.com/openai/openai-python#usage
 
 # This may take a few minutes
