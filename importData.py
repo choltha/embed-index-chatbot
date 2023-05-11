@@ -10,16 +10,26 @@ from openai.embeddings_utils import get_embedding
 
 # print(settings.OPENAI_API_KEY)
 
-# load & inspect dataset
-input_datapath = "data/fine_food_reviews_1k.csv"  # to save space, we provide a pre-filtered dataset
-df = pd.read_csv(input_datapath, index_col=0)
-df = df[["Time", "ProductId", "UserId", "Score", "Summary", "Text"]]
-df = df.dropna()
-df["combined"] = (
-    "Title: " + df.Summary.str.strip() + "; Content: " + df.Text.str.strip()
-)
-df.head(2)
 
+
+input_datapath = "./data/structured-content.csv"
+df = pd.read_csv(input_datapath, index_col=0)
+df = df[["Content"]]  # Adjusted column names here
+df = df.dropna()
+df["length"] = df.Content.apply(lambda x: len(x))
+num_rows = len(df)
+print(num_rows)
+sorted_df = df.sort_values('length', ascending=False)
+
+print(df.head(10))
+print(sorted_df.head(10))
+
+# Verify the column names after filtering
+print(df.columns)
+
+# show the length of each line
+
+'''
 # subsample to 1k most recent reviews and remove samples that are too long
 top_n = 1000
 df = df.sort_values("Time").tail(top_n * 2)  # first cut to first 2k entries, assuming less than half will be filtered out
@@ -38,3 +48,4 @@ len(df)
 # This may take a few minutes
 df["embedding"] = df.combined.apply(lambda x: get_embedding(x, engine=embedding_model))
 df.to_csv("data/fine_food_reviews_with_embeddings_1k.csv")
+'''

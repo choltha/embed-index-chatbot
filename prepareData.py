@@ -28,6 +28,6 @@ def index_html_files(root_folder, output_file):
 
 
 root_folder = './data/manuals'  # Replace with the root folder path to parse
-output_file = 'output.csv'  # Replace with the desired output CSV file path
+output_file = './data/structured-content.csv'  # Replace with the desired output CSV file path
 
 index_html_files(root_folder, output_file)
