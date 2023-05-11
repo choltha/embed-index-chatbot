@@ -13,21 +13,49 @@ from openai.embeddings_utils import get_embedding
 
 
 input_datapath = "./data/structured-content.csv"
-df = pd.read_csv(input_datapath, index_col=0)
-df = df[["Content"]]  # Adjusted column names here
+df = pd.read_csv(input_datapath)
+df = df[["Key","Content"]]  # Adjusted column names here
 df = df.dropna()
 df["length"] = df.Content.apply(lambda x: len(x))
+
+print("Number of rows pre-split:")
 num_rows = len(df)
 print(num_rows)
-sorted_df = df.sort_values('length', ascending=False)
 
-print(df.head(10))
-print(sorted_df.head(10))
+#split long rows 
 
-# Verify the column names after filtering
-print(df.columns)
+# Create an empty list to store the split chunks
+split_chunks = []
 
-# show the length of each line
+# Iterate over each row in the DataFrame
+for index, row in df.iterrows():
+    key = row['Key']
+    content = row['Content']
+    
+    # Check if the content length exceeds 2000 characters
+    if len(content) > 2000:
+        # Split the content into chunks of maximum 2000 characters
+        chunks = [content[i:i+2000] for i in range(0, len(content), 2000)]
+        
+        # Append the chunks to the split_chunks list, modifying the key
+        for i, chunk in enumerate(chunks):
+            split_chunks.append({'Key': key, 'Content': chunk})
+    else:
+        # If the content length is less than or equal to 2000 characters, append it as it is
+        split_chunks.append({'Key': key, 'Content': content})
+
+# Create a new DataFrame with the split chunks
+chunked_df = pd.DataFrame(split_chunks)
+
+chunked_df["length"] = chunked_df.Content.apply(lambda x: len(x))
+
+# debug
+# sorted_df = chunked_df.sort_values('length', ascending=False)
+# sorted_df.to_csv("./data/split-content.csv")
+# print(sorted_df.head(50))
+
+
+
 
 '''
 # subsample to 1k most recent reviews and remove samples that are too long
