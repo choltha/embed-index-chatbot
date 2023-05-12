@@ -36,3 +36,8 @@ for index, row in df_top_10.iterrows():
         break
 print ("Total Tokens Added:", total_tokens_added)
 print("Concatenated Text:", concatenated_text)
+
+# import promt template
+# fill in the placeholders
+# run gpt query
+# show results
