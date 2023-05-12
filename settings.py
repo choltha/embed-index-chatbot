@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 OPENAI_API_KEY = os.environ["OPENAI_API_KEY"]
+CHATBOT_TEMPLATE_FILE = os.environ["CHATBOT_TEMPLATE_FILE"]
 
 EMBEDDING_MODEL = "text-embedding-ada-002"
 EMBEDDING_ENCODING = "cl100k_base" # this the encoding for text-embedding-ada-002
