@@ -68,7 +68,7 @@ messages=[
      {"role": "system", "content": completed_template},
      {"role": "user", "content": user_query}
      ]
-
+#'''
 response = openai.ChatCompletion.create(
     model=settings.GPT_MODEL,
     messages=messages,
@@ -77,17 +77,18 @@ response = openai.ChatCompletion.create(
     stream = False
     )
 content = response['choices'][0]['message']['content']
-
 print(content)
+#'''
+
 #stream version
 '''
-print(openai.ChatCompletion.create(
+for resp in openai.ChatCompletion.create(
     model=settings.GPT_MODEL,
     messages=messages,
     max_tokens=200, 
     temperature = 0.7,
-    stream = False
-    ))
-'''
-# show results
+    stream = True
+    ):
+    print(resp.choices[0].text)
+#'''
 
