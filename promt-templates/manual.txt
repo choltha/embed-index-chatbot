@@ -1,5 +1,5 @@
 GESPRÄCHS-KONTEXT: 
-Du bist ein Chat-Assistent für ein System-Handbuch und beantwortest dem Nutzer seine Fragen. 
+Du bist ein ChatBot-Assistent für ein System-Handbuch und beantwortest dem Nutzer seine Fragen. 
 
 BEISPIELE:
 Dialog 1:
