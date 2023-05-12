@@ -65,15 +65,21 @@ print(num_rows)
 #'''
 sorted_df = chunked_df.sort_values('length', ascending=False)
 sorted_df.to_csv("./data/split-content.csv")
-print(sorted_df.head(50))
+print(sorted_df.head(10))
 #'''
 
-df_test = chunked_df.head(5)
+'''
+print('test only')
+df_test = chunked_df.head(1)
+df_test = chunked_df.iloc[49:50]
+print (df_test)
+'''
 
-
-
-#df['ada_embedding'] = df.combined.apply(lambda x: get_embedding(x, model='text-embedding-ada-002'))
-#df.to_csv('output/embedded_1k_reviews.csv', index=False)
+sorted_df_final = sorted_df.copy()
+#df_test['ada_embedding'] = df_test.Content.apply(lambda x: get_embedding(x, engine='text-embedding-ada-002'))
+#df_test['ada_embedding'] = df_test['Content'].apply(lambda x: get_embedding(x, engine='text-embedding-ada-002'))
+sorted_df_final['ada_embedding'] = sorted_df.Content.apply(lambda x: get_embedding(x, engine='text-embedding-ada-002'))
+sorted_df_final.to_csv("./data/structured-content-ada-002.csv")
 
 # Get embeddings and save them for future reuse
 # Ensure you have your API key set in your environment per the README: https://github.com/openai/openai-python#usage
