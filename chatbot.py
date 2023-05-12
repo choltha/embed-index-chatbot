@@ -15,13 +15,14 @@ token_for_content = total_tokens - answer_token_placeholder - fewshot_guidance_t
 #print (token_for_content) # should be 2596
 
 df_top_10=search.get_top_10_similar(param)
-# get token length for each top 10 result
-# add until token_cor_content is reached
-# token length is saved as top_10["tokens"]
 print(df_top_10)
 
 concatenated_text = ""
 total_tokens_added = 0
+
+# Iterate over each row in the DataFrame
+# adding the content to the concatenated_text
+# until the total tokens added would exceed the max token_for_content
 
 for index, row in df_top_10.iterrows():
     print(row)
