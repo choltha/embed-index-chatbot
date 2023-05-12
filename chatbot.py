@@ -69,6 +69,18 @@ messages=[
      {"role": "user", "content": user_query}
      ]
 
+response = openai.ChatCompletion.create(
+    model=settings.GPT_MODEL,
+    messages=messages,
+    max_tokens=200, 
+    temperature = 0.7,
+    stream = False
+    )
+content = response['choices'][0]['message']['content']
+
+print(content)
+#stream version
+'''
 print(openai.ChatCompletion.create(
     model=settings.GPT_MODEL,
     messages=messages,
@@ -76,6 +88,6 @@ print(openai.ChatCompletion.create(
     temperature = 0.7,
     stream = False
     ))
-
+'''
 # show results
 
