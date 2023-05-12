@@ -2,11 +2,14 @@ import settings
 import search
 import sys
 import pandas as pd
+import yaml
 
 # Assuming you want to read the first command-line argument
-param = sys.argv[1]
+template_config = sys.argv[1]
+user_query = sys.argv[2]
 
-print("Parameter:", param)
+print("template_config:", config)
+print("user_query:", user_query)
 
 total_tokens = int(settings.GPT_MAX_TOKENS)
 answer_token_placeholder = 500
@@ -38,6 +41,26 @@ print ("Total Tokens Added:", total_tokens_added)
 print("Concatenated Text:", concatenated_text)
 
 # import promt template
+with open('./prompt-templates/', 'r') as file:
+    template = file.read()
+
+# import template config
+with open(template_config, 'r') as file:
+    template_data = yaml.safe_load(file)
+
+# data which is not in the template config
+additional_data = {
+    'user_query': user_query,
+    'reference_data': concatenated_text
+}
+# Combine the data from the YAML file and the additional data into a single dictionary:
+data = {**template_data, **additional_data}
+
 # fill in the placeholders
+completed_template = template.format(**data)
+print(completed_template)
+
+
 # run gpt query
 # show results
+
