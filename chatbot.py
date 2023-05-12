@@ -72,12 +72,15 @@ def get_chat_response (user_query, debug=False):
     response = openai.ChatCompletion.create(
         model=settings.GPT_MODEL,
         messages=messages,
-        max_tokens=200, 
+        max_tokens=500, 
         temperature = 0.7,
         stream = False
         )
     content = response['choices'][0]['message']['content']
-    print(content)
+    if debug: print(content)
+    return content
+
+
     #'''
 
     #stream version
@@ -93,6 +96,8 @@ def get_chat_response (user_query, debug=False):
     #'''
 
 if __name__ == "__main__":
-    query = "Welche möglichkeiten habe ich für Einstellungen als Administrator beim Löschen und anonymisieren?"
+    #query = "Welche möglichkeiten habe ich für Einstellungen als Administrator beim Löschen und anonymisieren?"
+    #query = "Wie kann ich eine Anbindung an eine Telefonanlage vornehmen?"
+    #query = "Wie kann ich die Bewerliste tiefer legen und einen größeren Auspuff verbauen?"
     get_chat_response(query, True)
 
