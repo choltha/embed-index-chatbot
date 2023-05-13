@@ -1,9 +1,23 @@
-# using https://github.com/openai/openai-cookbook/blob/main/examples/Question_answering_using_embeddings.ipynb
-# imports
-import ast  # for converting embeddings saved as strings back to arrays
-import openai  # for calling the OpenAI API
-import pandas as pd  # for storing text and embeddings data
-import tiktoken  # for counting tokens
-from scipy import spatial  # for calculating vector similarities for search
-
 import settings
+import chatbot
+import openai
+
+
+if __name__ == "__main__":
+    openai.api_key = settings.OPENAI_API_KEY
+    my_dict = {
+        1: "Wie kann ich eine Aktionsliste anlegen?",
+        2: "Kann ich auch eine Aktionsliste für Projekte anlegen?",
+        3: "Welche möglichkeiten habe ich für Einstellungen als Administrator beim Löschen und anonymisieren?",
+        4: "Wie kann ich eine Anbindung an eine Telefonanlage vornehmen?",
+        5: "Wie kann ich die Bewerliste tiefer legen und einen größeren Auspuff verbauen?",
+        6: "Wer hat die EM 2016 gewonnen?"
+        }
+
+    for key, value in my_dict.items():
+        print("Frage: ", value)
+        print("##############")
+        response = chatbot.get_chat_response(value)
+        print("Antwort: ", response)
+        print("##############")
+    
