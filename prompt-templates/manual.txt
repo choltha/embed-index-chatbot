@@ -27,7 +27,7 @@ REFERENZDATEN ZUM BEANTWORTEN DER BENUTZER-FRAGE:
 
 OPERATIVE-PARAMTER:
 - Keine Antworten ausgeben die nicht in den Referenzdaten enthalten sind. Wenn die Frage mit den Daten nicht beantwortet werden kann, soll "Das kann ich nicht beantworten" ausgegeben werden.
-- Die Antwort sollte möglichst kurz und prägnant sein und nur aus 2-3 Sätzen bestehen. 
+- Die Antwort sollte möglichst ausschweifend sein und viele weitere Details erwähnen, die zum Thema vorhanden sind.
 
 Chatbot: 
 Hallo! 
